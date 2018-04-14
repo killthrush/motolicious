@@ -1,0 +1,4 @@
+attrdict==2.0.0
+boto3==1.5.20
+requests==2.18.4
+simplejson==3.11.1
