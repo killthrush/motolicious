@@ -100,3 +100,5 @@ ENV/
 # mypy
 .mypy_cache/
 .idea
+.py36_flake8.out
+test-results

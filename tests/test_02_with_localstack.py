@@ -1,6 +1,5 @@
 import attrdict
 import pytest
-
 import src.dynamo_facade as facade
 import tests.dynamodb_helpers as dh
 

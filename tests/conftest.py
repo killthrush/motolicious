@@ -2,7 +2,6 @@ import os
 import re
 import sys
 import time
-
 import boto3
 import docker
 import pytest
@@ -10,14 +9,26 @@ import pytest
 LOCALSTACK_IMAGE = "localstack/localstack:0.8.4"
 
 
+class MockLambdaContext(dict):
+    def __init__(self, farn, function_name=None):
+        self.invoked_function_arn = farn
+        self.function_name = function_name
+        dict.__init__(self, invoked_function_arn=farn, function_name=function_name)
+
+
+@pytest.fixture(scope='session', autouse=True)
+def lambda_context(request):
+    return MockLambdaContext('arn:aws:sns:us-east-1:123456789012:', function_name='my_func')
+
+
 def connect_to_local_docker():
-    def __ping__(client):
+    def _ping(client):
         client.ping()
 
     docker_client = docker.from_env()
 
     try:
-        __ping__(docker_client)
+        _ping(docker_client)
     except (TimeoutError, ConnectionError):
         print("ERROR: Docker does not appear to be up and running. Please start docker and try again.")
         sys.exit(1)
@@ -62,7 +73,7 @@ def localstack(docker_client, docker_cleanup):
     SERVICES = "SERVICES=s3,dynamodb,lambda,sns"
     container = docker_client.containers.run(LOCALSTACK_IMAGE,
                                              publish_all_ports=True,
-                                             name="reactor-cli-localstack",
+                                             name="motolicious-localstack",
                                              detach=True,
                                              environment=[SERVICES])
     logs = container.logs()
