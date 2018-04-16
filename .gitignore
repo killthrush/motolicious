@@ -102,3 +102,4 @@ ENV/
 .idea
 .py36_flake8.out
 test-results
+coverage-reports

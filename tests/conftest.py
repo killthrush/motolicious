@@ -22,7 +22,10 @@ def lambda_context(request):
 
 
 def connect_to_local_docker():
+    print('docker init fixture')
+
     def _ping(client):
+        print('docker container ping')
         client.ping()
 
     docker_client = docker.from_env()

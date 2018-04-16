@@ -4,8 +4,6 @@ docker==2.4.2
 flake8==3.3.0
 flake8-copyright==0.2.0
 hypothesis==3.18.4
-#-e git://github.com/spulec/moto.git@cd1c6d3e6c3c80bf55fbfd6a657ba642c6fb4e3f#egg=moto
-#-e git://github.com/spulec/moto.git@master#egg=moto
 moto==1.3.2
 placebo==0.8.1
 pycobertura==0.10.0
